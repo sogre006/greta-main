@@ -1,0 +1,143 @@
+<div class="dashboard-container">
+  <header class="dashboard-header">
+    <h1>FlowelleA Period Tracker</h1>
+    <div class="header-actions">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/profile">
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item routerLink="/calendar">
+          <mat-icon>calendar_today</mat-icon>
+          <span>Calendar</span>
+        </button>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Logout</span>
+        </button>
+      </mat-menu>
+    </div>
+  </header>
+
+  <main class="dashboard-content">
+
+    <!-- Summary cards -->
+    <section class="summary-card">
+      <div class="cycle-summary">
+        <div class="cycle-stats">
+          <div class="stat-item">
+            <div class="stat-value">
+              {{ averageCycleLength ?? '—' }}
+            </div>
+            <div class="stat-label">
+              Avg. Cycle Length
+            </div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">
+              {{ averagePeriodLength ?? '—' }}
+            </div>
+            <div class="stat-label">
+              Avg. Period Length
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent cycles -->
+    <section class="cycles-section">
+      <div class="section-header">
+        <h2>Your Recent Cycles</h2>
+        <button mat-raised-button color="primary" routerLink="/cycle/add">
+          <mat-icon>add</mat-icon>
+          New Cycle
+        </button>
+      </div>
+
+      <div *ngIf="recentCycles.length === 0" class="empty-state">
+        <p>No cycles recorded yet.</p>
+        <button mat-raised-button color="accent" routerLink="/cycle/add">
+          Add First Cycle
+        </button>
+      </div>
+
+      <div class="cycles-list">
+        <mat-card *ngFor="let cycle of recentCycles" class="cycle-card">
+          
+          <!-- dates + duration -->
+          <div class="cycle-dates">
+            <div class="date-range">
+              <span class="start-date">
+                {{ cycle.startDate | date:'mediumDate' }}
+              </span>
+              <span class="date-separator">→</span>
+              <span class="end-date">
+                {{ cycle.endDate | date:'mediumDate' }}
+              </span>
+            </div>
+            <div class="cycle-duration">
+              <div class="duration-value">
+                {{ cycle.duration }}
+              </div>
+              <div class="duration-label">
+                days
+              </div>
+            </div>
+          </div>
+
+          <!-- symptoms with intensity -->
+          <mat-card-content *ngIf="cycle.symptoms?.length">
+            <div class="symptoms-section">
+              <h4 class="symptoms-header">Symptoms:</h4>
+              <div class="symptoms-grid">
+                <div class="symptom-item" *ngFor="let symptom of cycle.symptoms">
+                  <span class="symptom-name">{{ symptom.name }}</span>
+                  <div class="intensity-indicator">
+                    <span class="intensity-label">Intensity:</span>
+                    <div class="intensity-dots">
+                      <span class="intensity-dot" 
+                            *ngFor="let i of [1,2,3,4,5]"
+                            [class.filled]="i <= symptom.intensity">
+                      </span>
+                    </div>
+                    <span class="intensity-value">({{ symptom.intensity }}/5)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+
+          <!-- actions -->
+          <mat-card-actions class="cycle-actions" align="end">
+            <button mat-icon-button color="primary"
+                    [routerLink]="['/cycle/edit', cycle.cycleId]">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn"
+                    (click)="onDeleteCycle(cycle.cycleId)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Navigation Footer -->
+  <nav class="dashboard-nav">
+    <a mat-raised-button color="primary" routerLink="/dashboard" class="active">
+      <mat-icon>home</mat-icon> Dashboard
+    </a>
+    <a mat-raised-button routerLink="/calendar">
+      <mat-icon>calendar_today</mat-icon> Calendar
+    </a>
+    <a mat-raised-button routerLink="/cycle/add">
+      <mat-icon>add</mat-icon> Add Cycle
+    </a>
+  </nav>
+</div>
