@@ -1,5 +1,3 @@
-using System;
-
 namespace PeriodTracker.API.Middleware
 {
     // Helper for Basic Auth: encrypts and decrypts credentials to/from the header format
