@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Symptom } from '../models/Symptom';
 import { environment } from '../environments/environment';
 
+//SymptomService fetches the list of available symptoms from the backend
 @Injectable({
   providedIn: 'root'
 })

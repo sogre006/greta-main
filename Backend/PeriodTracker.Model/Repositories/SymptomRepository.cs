@@ -1,74 +1,60 @@
 using Microsoft.Extensions.Configuration;
-using PeriodTracker.Model.Entities;
 using Npgsql;
 using NpgsqlTypes;
 
-namespace PeriodTracker.Model.Repositories
+// Repository for Symptom: handles retrieval of symptom definitions
+public class SymptomRepository : BaseRepository
 {
-    public class SymptomRepository : BaseRepository
+    // Constructor passes IConfiguration to BaseRepository to retrieve the connection string
+    public SymptomRepository(IConfiguration configuration) : base(configuration)
     {
-        public SymptomRepository(IConfiguration configuration) : base(configuration)
+    }
+
+    // Retrieves a single Symptom by its ID, or returns null if not found
+    public Symptom GetById(int id)
+    {
+        // Validate input parameter
+        if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
+
+        // Open and dispose connection/command with using blocks
+        using var conn = new NpgsqlConnection(ConnectionString);
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "SELECT * FROM Symptoms WHERE symptom_id = @id";
+        cmd.Parameters.AddWithValue("@id", NpgsqlDbType.Integer, id);
+
+        // Execute query and dispose reader
+        using var reader = GetData(conn, cmd);
+        if (reader.Read())
         {
+            // Map database columns to Symptom entity
+            return new Symptom(Convert.ToInt32(reader["symptom_id"]))
+            {
+                Name = reader["name"].ToString(),
+                Icon = reader["icon"]?.ToString()
+            };
         }
+        return null;
+    }
 
-        public Symptom GetById(int id)
+    // Retrieves all Symptom definitions, ordered alphabetically by name
+    public List<Symptom> GetAllSymptoms()
+    {
+        var symptoms = new List<Symptom>();
+
+        using var conn = new NpgsqlConnection(ConnectionString);
+        using var cmd  = conn.CreateCommand();
+        cmd.CommandText = "SELECT * FROM Symptoms ORDER BY name";
+
+        // Execute reader and iterate rows
+        using var reader = GetData(conn, cmd);
+        while (reader.Read())
         {
-            NpgsqlConnection dbConn = null;
-            try
+            symptoms.Add(new Symptom(Convert.ToInt32(reader["symptom_id"]))
             {
-                dbConn = new NpgsqlConnection(ConnectionString);
-                var cmd = dbConn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Symptoms WHERE symptom_id = @id";
-                cmd.Parameters.Add("@id", NpgsqlDbType.Integer).Value = id;
-
-                var data = GetData(dbConn, cmd);
-                if (data != null && data.Read())
-                {
-                    return new Symptom
-                    {
-                        SymptomId = Convert.ToInt32(data["symptom_id"]),
-                        Name = data["name"].ToString(),
-                        Icon = data["icon"]?.ToString()
-                    };
-                }
-                return null;
-            }
-            finally
-            {
-                dbConn?.Close();
-            }
+                Name = reader["name"].ToString(),
+                Icon = reader["icon"]?.ToString()
+            });
         }
-
-        public List<Symptom> GetAllSymptoms()
-        {
-            NpgsqlConnection dbConn = null;
-            var symptoms = new List<Symptom>();
-            try
-            {
-                dbConn = new NpgsqlConnection(ConnectionString);
-                var cmd = dbConn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Symptoms ORDER BY name";
-
-                var data = GetData(dbConn, cmd);
-                if (data != null)
-                {
-                    while (data.Read())
-                    {
-                        symptoms.Add(new Symptom
-                        {
-                            SymptomId = Convert.ToInt32(data["symptom_id"]),
-                            Name = data["name"].ToString(),
-                            Icon = data["icon"]?.ToString()
-                        });
-                    }
-                }
-                return symptoms;
-            }
-            finally
-            {
-                dbConn?.Close();
-            }
-        }
-
+        return symptoms;
     }
 }

@@ -4,11 +4,16 @@ import { Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/User';
 import { environment } from '../environments/environment';
 
+//Request payload for updating a user's password
 interface PasswordUpdateRequest {
   UserId: number;
   Password: string;
 }
 
+/**
+ * UserService manages user profile CRUD operations and password changes.
+ * Communicates with backend endpoints under /user.
+ */
 @Injectable({
   providedIn: 'root'
 })
