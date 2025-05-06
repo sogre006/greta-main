@@ -2,8 +2,6 @@
 // Purpose: Manage menstrual cycle records per user (list, create, delete)
 
 using Microsoft.AspNetCore.Mvc;                             // Provides API controllers and ActionResult types
-using PeriodTracker.Model.Entities;                        // Defines PeriodCycle entity
-using PeriodTracker.Model.Repositories;                    // Repositories for data access
 
 namespace PeriodTracker.API.Controllers
 {

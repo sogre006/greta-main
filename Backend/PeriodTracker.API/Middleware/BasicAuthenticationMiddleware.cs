@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Authorization;      // For IAllowAnonymous
-using PeriodTracker.Model.Repositories;        // For UserRepository
 
 namespace PeriodTracker.API.Middleware
 {

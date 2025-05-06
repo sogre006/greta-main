@@ -2,8 +2,6 @@
 // Purpose: Manage associations between menstrual cycles and reported symptoms (CRUD operations)
 
 using Microsoft.AspNetCore.Mvc;                                 // API Controller base and ActionResult types
-using PeriodTracker.Model.Entities;                            // CycleSymptom entity definition
-using PeriodTracker.Model.Repositories;                        // Repositories for data access
 
 namespace PeriodTracker.API.Controllers
 {

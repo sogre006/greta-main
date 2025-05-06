@@ -82,3 +82,4 @@ c:/Users/vince/OneDrive/master/greta/greatalovesvini-main/PeriodTracker.API/obj/
 /Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.API/obj/Debug/net8.0/PeriodTracker.API.pdb
 /Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.API/obj/Debug/net8.0/PeriodTracker.API.genruntimeconfig.cache
 /Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.API/obj/Debug/net8.0/ref/PeriodTracker.API.dll
+/Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.API/obj/Debug/net8.0/PeriodTracker.API.sourcelink.json

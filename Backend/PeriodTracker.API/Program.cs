@@ -1,5 +1,4 @@
 using PeriodTracker.API.Middleware;          // Provides the UseBasicAuthenticationMiddleware extension
-using PeriodTracker.Model.Repositories;      // Repository classes for DI registration
 using System.Text.Json;                      // JSON options for camelCase naming
 
 var builder = WebApplication.CreateBuilder(args); // Create the web application builder

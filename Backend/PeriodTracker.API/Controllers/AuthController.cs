@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Authorization;    // For [AllowAnonymous]
 using Microsoft.AspNetCore.Mvc;               // Provides APIController and ActionResult
 using PeriodTracker.Model.Entities;           // Defines User entity
-using PeriodTracker.Model.Repositories;       // Provides UserRepository for data access
 using PeriodTracker.API.Middleware;           // Contains AuthenticationHelper for token operations
 
 namespace PeriodTracker.API.Controllers

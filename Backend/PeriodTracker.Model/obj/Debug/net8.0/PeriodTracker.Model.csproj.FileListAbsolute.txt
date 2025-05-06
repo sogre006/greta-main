@@ -36,3 +36,4 @@ c:/Users/vince/OneDrive/master/greta/greatalovesvini-main/PeriodTracker.Model/ob
 /Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.Model/obj/Debug/net8.0/refint/PeriodTracker.Model.dll
 /Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.Model/obj/Debug/net8.0/PeriodTracker.Model.pdb
 /Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.Model/obj/Debug/net8.0/ref/PeriodTracker.Model.dll
+/Users/gretawanner/Documents/PeriodTracker/greta-main/Backend/PeriodTracker.Model/obj/Debug/net8.0/PeriodTracker.Model.sourcelink.json

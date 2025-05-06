@@ -2,7 +2,6 @@
 // Purpose: Expose endpoints to retrieve available symptoms for users to select/report.
 
 using Microsoft.AspNetCore.Mvc;                             // Provides controller base and HTTP attributes
-using PeriodTracker.Model.Repositories;                    // Repository for data access
 
 namespace PeriodTracker.API.Controllers
 {

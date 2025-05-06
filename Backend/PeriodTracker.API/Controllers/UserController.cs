@@ -4,7 +4,6 @@
 using Microsoft.AspNetCore.Authorization;  // For securing endpoints
 using Microsoft.AspNetCore.Mvc;            // Provides ControllerBase, routing, and ActionResult
 using PeriodTracker.Model.Entities;        // Defines User entity
-using PeriodTracker.Model.Repositories;    // Provides UserRepository for data access
 
 namespace PeriodTracker.API.Controllers
 {
